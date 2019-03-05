@@ -45,33 +45,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) => list[index]
             ),
-            flex: 9,
           ),
           Expanded(
-            child: Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      width: double.maxFinite,
-                      child: TextField(
-                        decoration: InputDecoration(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: 100.0
+              ),
+              child: Container(
+                height: 100.0,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: TextField(
+                          maxLines: null,
+                          decoration: InputDecoration(
+                              border: InputBorder.none
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  OutlineButton(
-                    borderSide: BorderSide(color: Colors.black),
-                    onPressed: (){},
-                    child: Text('전송'),
-                  )
-                ],
+                    Image.asset("assets/btn_action.png", width: 60.0, fit: BoxFit.fill,)
+                  ],
+                ),
               ),
-            ),
-            flex: 1,
+            )
           )
         ],
       )// This trailing comma makes auto-formatting nicer for build methods.

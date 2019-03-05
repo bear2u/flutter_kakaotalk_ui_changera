@@ -27,6 +27,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener((){
+      print(_controller.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,35 +62,55 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context, index) => list[index]
             ),
           ),
-          Expanded(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: 100.0
-              ),
-              child: Container(
-                height: 100.0,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                        child: TextField(
-                          maxLines: null,
-                          decoration: InputDecoration(
-                              border: InputBorder.none
-                          ),
-                        ),
+          /*
+          LayoutBuilder(
+    builder: (context, size){
+      TextSpan text = new TextSpan(
+        text: yourTextController.text,
+        style: yourTextStyle,
+      );
+
+      TextPainter tp = new TextPainter(
+          text: text,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.left,
+      );
+      tp.layout(maxWidth: size.maxWidth);
+
+      int lines = (tp.size.height / tp.preferredLineHeight).ceil();
+      int maxLines = 10;
+
+      return TextField(
+        controller: yourTextController,
+        maxLines: lines < maxLines ? null : maxLines,
+        style: yourTextStyle,
+      );
+    }
+  )
+           */
+          Container(
+            height:70.0,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                    child: TextField(
+                      controller: _controller,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                          border: InputBorder.none
                       ),
                     ),
-                    Image.asset("assets/btn_action.png", width: 60.0, fit: BoxFit.fill,)
-                  ],
+                  ),
                 ),
-              ),
-            )
-          )
+                Image.asset("assets/btn_action.png", width: 60.0, fit: BoxFit.fill,)
+              ],
+            ),
+          ),
         ],
       )// This trailing comma makes auto-formatting nicer for build methods.
     );
